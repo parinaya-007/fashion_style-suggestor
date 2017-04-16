@@ -77,61 +77,61 @@ else
 //check whether a profile pic has been uploaded or not
 //$profile_pic = "img/default_pic.jpg";
 
-$check_pic=mysqli_query($db,"SELECT profile_pic FROM users WHERE username = '$user'");
-$get_pic_row = mysqli_fetch_array($check_pic,MYSQLI_ASSOC);
-$profile_pic_db = $get_pic_row['profile_pic'];
+// $check_pic=mysqli_query($db,"SELECT profile_pic FROM users WHERE username = '$user'");
+// $get_pic_row = mysqli_fetch_array($check_pic,MYSQLI_ASSOC);
+// $profile_pic_db = $get_pic_row['profile_pic'];
 
-		if($profile_pic_db == "")
-		{
-			$profile_pic = "img/downloaded.png";
-		}
-		else
-		{
-			$profile_pic = "userdata/profile_pics/".$profile_pic_db;
-		}
+// 		if($profile_pic_db == "")
+// 		{
+// 			$profile_pic = "img/downloaded.png";
+// 		}
+// 		else
+// 		{
+// 			$profile_pic = "userdata/profile_pics/".$profile_pic_db;
+// 		}
 
 
-if(isset($_FILES['profilepic']))
-{
-	if((((@$_FILES["profilepic"]["type"])=="image/jpeg")|| (@$_FILES["profilepic"]["type"]=="image/png")|| (@$_FILES["profilepic"]["type"]=="image/gif"))&&(@$_FILES["profilepic"]["size"]<1048576))// 1 megabyte
-{
-	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	$rand_dir_name = substr(str_shuffle($chars), 0,15);
-	//echo $rand_dir_name;
-	mkdir("userdata/profile_pics/$rand_dir_name");
+// if(isset($_FILES['profilepic']))
+// {
+// 	if((((@$_FILES["profilepic"]["type"])=="image/jpeg")|| (@$_FILES["profilepic"]["type"]=="image/png")|| (@$_FILES["profilepic"]["type"]=="image/gif"))&&(@$_FILES["profilepic"]["size"]<1048576))// 1 megabyte
+// {
+// 	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+// 	$rand_dir_name = substr(str_shuffle($chars), 0,15);
+// 	//echo $rand_dir_name;
+// 	mkdir("userdata/profile_pics/$rand_dir_name");
 
-	if(file_exists("userdata/profile_pics/$rand_dir_name/".@$_FILES["profilepic"]["name"]))
-	{
-		echo @$_FILES["profilepic"]["name"]."Already exists";
+// 	if(file_exists("userdata/profile_pics/$rand_dir_name/".@$_FILES["profilepic"]["name"]))
+// 	{
+// 		echo @$_FILES["profilepic"]["name"]."Already exists";
 
-	}
-	else
-	{
-		move_uploaded_file(@$_FILES["profilepic"]["tmp_name"],"userdata/profile_pics/$rand_dir_name/".$_FILES["profilepic"]["name"]);
-		$profile_pic_name = @$_FILES["profilepic"]["name"];
-		//echo "Uploaded and stored in : userdata/profile_pics/$rand_dir_name/".@$_FILES["profilepic"]["name"];
-		$profile_pic_sql = mysqli_query($db,"UPDATE users SET profile_pic='$rand_dir_name/$profile_pic_name' WHERE username='$user'");
-    if($profile_pic_sql)
-		{
-			header("Location :account_settings.php");
-		}
+// 	}
+// 	else
+// 	{
+// 		move_uploaded_file(@$_FILES["profilepic"]["tmp_name"],"userdata/profile_pics/$rand_dir_name/".$_FILES["profilepic"]["name"]);
+// 		$profile_pic_name = @$_FILES["profilepic"]["name"];
+// 		//echo "Uploaded and stored in : userdata/profile_pics/$rand_dir_name/".@$_FILES["profilepic"]["name"];
+// 		$profile_pic_sql = mysqli_query($db,"UPDATE users SET profile_pic='$rand_dir_name/$profile_pic_name' WHERE username='$user'");
+//     if($profile_pic_sql)
+// 		{
+// 			header("Location :account_settings.php");
+// 		}
 
-		else
-		{
-			echo "error uploading dp";
-		}
-  }
-	}
-  else
-  {
-    echo "Invalid file! Your file should be less than 1Mb and it must be either a .jpg , .jpeg , .png , .gif";
-  }
-}
+// 		else
+// 		{
+// 			echo "error uploading dp";
+// 		}
+//   }
+// 	}
+//   else
+//   {
+//     echo "Invalid file! Your file should be less than 1Mb and it must be either a .jpg , .jpeg , .png , .gif";
+//   }
+// }
 
-else
-{
-	//echo "Update your profile pic";
-}
+// else
+// {
+// 	//echo "Update your profile pic";
+// }
 
 
 ?>
